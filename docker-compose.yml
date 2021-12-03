@@ -1,0 +1,8 @@
+version: "3.4"
+
+services:
+  giphy_redis:
+    image: redis
+    container_name: giphy_redis
+    ports:
+      - "6379:6379"

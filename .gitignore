@@ -1,0 +1,19 @@
+**/bin
+**/obj
+**/obj
+.idea/*
+# Local .terraform directories
+**/.terraform/*
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+terraform/**/.terraform.lock.hcl
+terraform.tfvars.json
+.DS_Store
+.idea
+.Rhistory
+/.vs/casino-games-genies-12-wishes-api/v16/.suo
+/.vs/Genies12Wishes/DesignTimeBuild/.dtbcache.v2
+/.vs/Genies12Wishes/v16/.suo
+/.vs/slnx.sqlite
