@@ -30,10 +30,14 @@ if (app.Environment.IsDevelopment())
 
 app.UseGlobalExceptionHandler();
 
+app.UseRouting();
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseEndpoints(endpoints => { endpoints.MapHealthChecks("/health"); });
 
 app.Run();
