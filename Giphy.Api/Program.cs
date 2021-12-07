@@ -12,7 +12,7 @@ services.AddControllers();
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();
 
-services.AddUseCaseDependencies()
+services.AddUseCaseDependencies(configuration)
     .AddPersistence(configuration)
     .AddInfrastructure(configuration);
 

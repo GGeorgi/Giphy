@@ -3,23 +3,28 @@ using System.Reflection;
 using System.Text.Json;
 using Giphy.Application.Exceptions;
 using Giphy.Application.Mapping;
-using Giphy.Application.Threading;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using RedLockNet.SERedis;
+using RedLockNet.SERedis.Configuration;
+using StackExchange.Redis;
 
 namespace Giphy.Application.Extensions;
 
 public static class DependencyExtensions
 {
-    public static IServiceCollection AddUseCaseDependencies(this IServiceCollection services)
+    public static IServiceCollection AddUseCaseDependencies(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddMediatR(c => c.AsScoped(), Assembly.GetExecutingAssembly());
         services.AddAutoMapper(typeof(MappingProfile).Assembly);
-        services.AddSingleton(_ => new ConsistentHash<TaskQueue>(200));
+        
+        var redisString = configuration.GetConnectionString("Redis");
+        services.AddSingleton(_ => RedLockFactory.Create(new List<RedLockMultiplexer> { ConnectionMultiplexer.Connect(redisString) }));
         return services;
     }
 
